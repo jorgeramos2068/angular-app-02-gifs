@@ -1,1 +1,14 @@
-<p>Lorem ipsum</p>
+<div class="row">
+  <div *ngFor="let result of results" class="col-md-4 col-sm-6">
+    <div class="card">
+      <img
+        [src]="result.images.downsized_medium.url"
+        [alt]="result.title"
+        class="card-image-top"
+      />
+      <div class="card-body">
+        <p class="card-text">{{ result.title }}</p>
+      </div>
+    </div>
+  </div>
+</div>
