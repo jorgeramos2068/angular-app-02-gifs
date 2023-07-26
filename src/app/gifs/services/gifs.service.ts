@@ -10,7 +10,17 @@ export class GifsService {
   private _historicalList: string[] = [];
   public results: Gif[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    const localHistorical: string =
+      localStorage.getItem('gifsHistorical') || '';
+    if (localHistorical.length) {
+      this._historicalList = JSON.parse(localHistorical);
+    }
+    const localResults: string = localStorage.getItem('gifsResults') || '';
+    if (localResults.length) {
+      this.results = JSON.parse(localResults);
+    }
+  }
 
   get historicalList(): string[] {
     return [...this._historicalList];
@@ -21,6 +31,10 @@ export class GifsService {
     if (!this._historicalList.includes(query)) {
       this._historicalList.unshift(query);
       this._historicalList = this._historicalList.splice(0, 10);
+      localStorage.setItem(
+        'gifsHistorical',
+        JSON.stringify(this._historicalList)
+      );
     }
     this.http
       .get<SearchGifsResponse>(
@@ -28,6 +42,7 @@ export class GifsService {
       )
       .subscribe((resp) => {
         this.results = resp.data;
+        localStorage.setItem('gifsResults', JSON.stringify(this.results));
       });
   }
 }
