@@ -11,4 +11,10 @@ export class SidebarComponent {
   get historicalList(): string[] {
     return this.gifsService.historicalList;
   }
+
+  search(query: string) {
+    if (query.trim().length !== 0) {
+      this.gifsService.searchGifs(query);
+    }
+  }
 }

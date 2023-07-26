@@ -3,10 +3,11 @@
   <hr class="text-light" />
   <div class="list-group list-reset">
     <a
+      *ngFor="let historicalItem of historicalList"
+      (click)="search(historicalItem)"
       href="#"
-      *ngFor="let historialItem of historicalList"
       class="list-group-item list-group-item-action"
-      >{{ historialItem }}</a
+      >{{ historicalItem }}</a
     >
   </div>
 </div>
